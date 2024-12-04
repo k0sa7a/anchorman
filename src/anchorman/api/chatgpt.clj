@@ -27,9 +27,9 @@
                                                        - Do not include reference to the time of day when the news are being presented.
                                                        - Reference the source of the news.
                                                      Title: %s\n
-                                                                                         Description: %s\n
-                                                                                         Source: %s\n
-                                                                                         Content: %s" title description source content)}]}]
+                                                     Description: %s\n
+                                                     Source: %s\n
+                                                     Content: %s" title description source content)}]}]
     (json/generate-string clj-payload)))
 
 (defn ask-chatgpt-for-script [article]
