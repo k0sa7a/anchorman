@@ -7,7 +7,7 @@
 
 
 
-(defn generate-payload [article]
+(defn script-generate-payload [article]
 
   (let [title (:title article)
         description (:description article)
@@ -33,7 +33,7 @@
     (json/generate-string clj-payload)))
 
 (defn ask-chatgpt-for-script [article]
-  (let [payload (generate-payload article)
+  (let [payload (script-generate-payload article)
         response-str (:body (client/post "https://api.openai.com/v1/chat/completions" {:headers {"Authorization" (str "Bearer " chatgpt-api-key)
                                                                                                  "Content-Type" "application/json"}
                                                                                        :body payload}))
@@ -43,5 +43,21 @@
                    first
                    :message
                    :content)]
-    script)
-  )
+    script))
+
+(defn audio-generate-payload [script]
+
+  (let [clj-payload {
+                        "model" "tts-1"
+                        "input" script
+                        "voice" "onyx"
+                      }]
+    (json/generate-string clj-payload)))
+
+(defn ask-chatgpt-for-audio [script]
+  (let [payload (audio-generate-payload script)
+        response  (client/post "https://api.openai.com/v1/audio/speech" {:headers {"Authorization" (str "Bearer " chatgpt-api-key)
+                                                                                       "Content-Type" "application/json"}
+                                                                             :body payload
+                                                                         :as :byte-array})]
+    response))
