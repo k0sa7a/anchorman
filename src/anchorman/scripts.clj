@@ -41,6 +41,3 @@
     (save-text-to-file caption-string sanitized-timestamp)
     sanitized-timestamp)
   )
-
-(generate-audio)
-(generate-caption)
