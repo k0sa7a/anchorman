@@ -15,7 +15,9 @@
         title (:title response)
         description (:description response)
         content (:content response)
-        source (:name (:source response))]
+        source (:source response)
+        url (:url response)
+        image (:image response)]
     ;; printing for tests/checks if needed
     ;; (prn "TITLE:\n")
     ;; (clojure.pprint/pprint title)
@@ -26,9 +28,13 @@
     ;; (prn "CONTENT:\n")
     ;; (clojure.pprint/pprint content)
     ;; (print "----\n")
-    ;; (prn "SOURCE:\n")
-    ;; (clojure.pprint/pprint source)
-    ;; (print "----\n")
+    (prn "SOURCE:\n")
+    (clojure.pprint/pprint source)
+    (print "----\n")
+    (prn "URL:\n")
+    (clojure.pprint/pprint url)
+    (print "----\n")
+    (prn "IMAGE:\n")
+    (clojure.pprint/pprint image)
+    (print "----\n")
     response))
-
-(get-article)

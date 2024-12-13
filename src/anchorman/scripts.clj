@@ -24,10 +24,14 @@
 (defn generate-audio []
   (let [script (generate-script)
         response (anchorman.api.chatgpt/ask-chatgpt-for-audio script)
-        file-path (str "output/audio-" (java.time.LocalDateTime/now) ".mp3")
+        datetime (java.time.LocalDateTime/now)
+        file-path (str "output/audio-" datetime ".mp3")
+        file-path-script (str "output/script-" datetime ".txt")
+        sanitized-timestamp-script (clojure.string/replace file-path-script #":" "-")
         sanitized-timestamp (clojure.string/replace file-path #":" "-")
         audio (:body response)]
     (print script)
+    (save-text-to-file script sanitized-timestamp-script)
     (save-audio-to-file audio sanitized-timestamp)
     sanitized-timestamp))
 
